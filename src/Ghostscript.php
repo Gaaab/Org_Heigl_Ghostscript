@@ -245,11 +245,17 @@ class Ghostscript
      *
      * The new Instance will use a jpeg-device as default
      *
+     * @param string|null $path The path to set
+     *
      * @return void
      */
-    public function __construct()
+    public function __construct($path = null)
     {
         $this->setDevice('png');
+
+        if (! is_null($path)) {
+            static::setGsPath($path);
+        }
     }
 
     /**
@@ -372,7 +378,7 @@ class Ghostscript
         }
 
         $this->outfile = $name;
-        
+
         return $this;
     }
 
@@ -907,9 +913,4 @@ class Ghostscript
 
         return true;
     }
-}
-
-try {
-    Ghostscript::setGsPath();
-} catch (\UnexpectedValueException $e) {
 }
